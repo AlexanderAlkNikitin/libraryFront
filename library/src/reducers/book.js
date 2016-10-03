@@ -21,6 +21,8 @@ export default function getBook(state = initialState, action) {
             return {...state, showBook: action.showBook}
         case 'CREATE_SUCCES_BOOK':
             return {...state, activeBook: {book: action.data}}
+        case 'DELETE_SUCCESS_BOOK':
+            return {...state,bookList:{books:action.data,loading:false}}
         default:
             return state
     }

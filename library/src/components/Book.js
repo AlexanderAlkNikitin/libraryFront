@@ -8,6 +8,7 @@ export default class Book extends Component {
         console.log('comps');
         this.props.getBooks();
     }
+
     onClickBtn(e) {
         this.sleep(500).then(() => {
             this.props.hideBookForm()
@@ -18,9 +19,15 @@ export default class Book extends Component {
             this.props.shBook()
         });
     }
-    onClickBtnAddBook(){
+
+    onClickBtnAddBook() {
         console.log('show add');
         this.props.shBook()
+    }
+
+    onClickBtnDeleteBook(e) {
+
+        this.props.deleteBook(e);
     }
 
     sleep(time) {
@@ -29,14 +36,24 @@ export default class Book extends Component {
 
     renderBooks(books) {
         return books.map((book) => {
-            let t = this.onClickBtn.bind(this, book.id);
+            let updateBtnClick = this.onClickBtn.bind(this, book.id);
+            let deleteBtnClick = this.onClickBtnDeleteBook.bind(this, book);
+
             return (
                 <tbody key={book.id}>
-                <tr onClick={t}>
+                <tr>
                     <td>{book.id}</td>
                     <td>{book.name}</td>
                     <td>{book.genre}</td>
                     <td>{book.author}</td>
+                    <td >
+                        <button className='waves-effect waves-light lighten-2 btn' onClick={updateBtnClick}><i
+                            className='material-icons center'>settings</i></button>
+                        {' '}
+                        <button className='waves-effect waves-light red red-darken-4 btn'
+                                onClick={deleteBtnClick}><i
+                            className='material-icons center'>delete</i></button>
+                    </td>
                 </tr>
                 </tbody>
             );
@@ -53,7 +70,8 @@ export default class Book extends Component {
         return (
             <div className='container'>
                 <h1>Books</h1>
-                <button className='waves-effect waves-light btn' onClick={::this.onClickBtnAddBook}>button</button>
+                <button className='waves-effect waves-light btn' onClick={::this.onClickBtnAddBook}>Show add form
+                </button>
                 <table className='highlight'>
                     <thead>
                     <tr>
@@ -77,6 +95,8 @@ Book.propTypes = {
     getBooks: PropTypes.func.isRequired,
     getBook: PropTypes.func.isRequired,
     shBook: PropTypes.func.isRequired,
-    hideBookForm: PropTypes.func.isRequired
+    hideBookForm: PropTypes.func.isRequired,
+    deleteBook: PropTypes.func.isRequired
+
     // showBook:PropTypes.boolean.isRequired
 }

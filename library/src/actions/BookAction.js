@@ -41,12 +41,13 @@ export function getBooks() {
         dispatch(requestBooks());
         return axios({
             url: URL + 'books',
-            // url: URL + 'comments?'+'postId='+1,
             timeout: 20000,
-            // params: {
-            //     postId: 1
-            // },
-            method: 'GET',
+            // headers:[{
+            //     contentType:'application/json;charset=UTF-8',
+            //     transferEncoding:'chunked',
+            //     origin:'http://localhost:8080/books'
+            // }],
+            // method: 'GET',
             responseType: 'json'
         }).then(function (response) {
             dispatch(receiveBooks(response.data));
@@ -102,6 +103,34 @@ export function createBook(book) {
             responseType:'json'
         }).then(function (response) {
             dispatch(receiveNewBook(response.data))
+        })
+    }
+}
+function delBook(data) {
+    return{
+        type: 'DELETE_SUCCESS_BOOK',
+        data: data
+    }
+}
+export function deleteBook(book) {
+    console.log(book)
+    return function (dispatch) {
+        return axios({
+            url:URL+'books/delete',
+            timeout:20000,
+            data:{
+                id:book.id,
+                name:book.name,
+                author:book.author,
+                genre:book.genre
+            },
+            method:'delete',
+            // headers:[{
+            //   contentType:'application/json'}
+            // ],
+            responseType:'json'
+        }).then(function (response) {
+            dispatch(delBook(response.data))
         })
     }
 }
