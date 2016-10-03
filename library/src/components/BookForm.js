@@ -1,20 +1,52 @@
-import React, {Component} from 'react'
-import {Row, Input, Col} from 'react-materialize'
+import React, {Component, PropTypes} from 'react'
+// import {Row, Input, Col,Button} from 'react-materialize'
+
 
 export default class BookForm extends Component {
 
+    onClickBtn(e) {
+        e.preventDefault();
+        var book = {
+            id: e.target.id.value,
+            name: e.target.name.value,
+            author: e.target.author.value,
+            genre: e.target.genre.value
+        }
+        console.log(e.target.id.value)
+        this.sleep(5000).then(() => {
+            this.props.createBook(book);
+        });
+        this.props.hideBookForm()
+
+    }
+
+    sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
     render() {
         const {book}=this.props.activeBook
-        // const {showBook}=this.props.showBook
         return (
             <div className='container'>
-                <Row >
-                    <Col s={6}>
-                        <Input label='Namess' s={6} defaultValue={book.name}/>
-                        <Input label='Genree' s={6} defaultValue={book.genre}/>
-                        <Input label='Author' s={6} defaultValue={book.author}/>
-                    </Col>
-                </Row></div>
+                {book ? <h3>Update book </h3> : <h3>Add book</h3>}
+                <div className='row'>
+                    <div className='col s6'>
+                        <form onSubmit={::this.onClickBtn}>
+                            <input name='id' type='hidden' defaultValue={book ? book.id : ''} placeholder='id'/>
+                            <input name='name' defaultValue={book ? book.name : ''} placeholder='Name'/>
+                            <input name='author' defaultValue={book ? book.author : ''} placeholder='Author'/>
+                            <input name='genre' defaultValue={book ? book.genre : ''} placeholder='Genre'/>
+                            <button className='waves-effect waves-light btn'
+                                    type='submit'>{book ? 'Update' : 'Add'}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         )
     }
+}
+BookForm.propsTypes = {
+    createBook: PropTypes.func.isRequired,
+    hideBookForm: PropTypes.func.isRequired
 }

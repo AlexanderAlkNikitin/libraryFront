@@ -18,6 +18,10 @@ export default class Book extends Component {
             this.props.shBook()
         });
     }
+    onClickBtnAddBook(){
+        console.log('show add');
+        this.props.shBook()
+    }
 
     sleep(time) {
         return new Promise((resolve) => setTimeout(resolve, time));
@@ -49,6 +53,7 @@ export default class Book extends Component {
         return (
             <div className='container'>
                 <h1>Books</h1>
+                <button className='waves-effect waves-light btn' onClick={::this.onClickBtnAddBook}>button</button>
                 <table className='highlight'>
                     <thead>
                     <tr>

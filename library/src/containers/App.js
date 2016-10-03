@@ -10,10 +10,10 @@ import * as bookActions from '../actions/BookAction'
 class App extends Component {
     render() {
         const {bookList, activeBook,showBook} =this.props
-        const {getBooks, getBook, shBook,hideBookForm}=this.props.bookActions
+        const {getBooks, getBook, shBook,hideBookForm,createBook}=this.props.bookActions
         return <div>
             <Book bookList={bookList} getBooks={getBooks} getBook={getBook} shBook={shBook} hideBookForm={hideBookForm}/>
-            {showBook ? <BookForm  activeBook={activeBook}/> : null}
+            {showBook ? <BookForm  activeBook={activeBook} createBook={createBook} hideBookForm={hideBookForm}/> : null}
         </div>
     }
 }

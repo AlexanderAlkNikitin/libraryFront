@@ -77,6 +77,34 @@ export function getBook(id) {
         })
     }
 }
+function receiveNewBook(data) {
+    return{
+        type: 'CREATE_SUCCESS_BOOK',
+        data: data
+    }
+}
+export function createBook(book) {
+    console.log(book)
+    return function (dispatch) {
+        return axios({
+            url:URL+'books/save',
+            timeout:20000,
+            data:{
+                id:book.id,
+                name:book.name,
+                author:book.author,
+                genre:book.genre
+            },
+            method:'POST',
+            // headers:[{
+            //   contentType:'application/json'}
+            // ],
+            responseType:'json'
+        }).then(function (response) {
+            dispatch(receiveNewBook(response.data))
+        })
+    }
+}
 export function shBook() {
     return function (dispatch) {
         dispatch(setShowBook());
