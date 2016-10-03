@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Book from '../components/Book'
+import BookForm from '../components/BookForm'
 import * as bookActions from '../actions/BookAction'
 // import {getBooks,fetchBooksSucces} from '../actions/BookAction'
 
@@ -11,7 +12,8 @@ class App extends Component {
         const {bookList, activeBook} =this.props
         const {getBooks, getBook}=this.props.bookActions
         return <div>
-            <Book activeBook={activeBook} bookList={bookList} getBooks={getBooks} getBook={getBook}/>
+            <Book bookList={bookList} getBooks={getBooks} getBook={getBook}/>
+            <BookForm  activeBook={activeBook}/>
         </div>
     }
 }

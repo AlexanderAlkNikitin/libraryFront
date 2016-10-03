@@ -23,7 +23,7 @@ function receiveBook(json) {
         data: json
     }
 }
-const URL = 'https://jsonplaceholder.typicode.com/';
+const URL = 'http://localhost:8080/';
 function receiveError(data) {
     return {
         type: 'ERROR',
@@ -34,12 +34,12 @@ export function getBooks() {
     return function (dispatch) {
         dispatch(requestBooks());
         return axios({
-            url: URL + 'comments',
+            url: URL + 'books',
             // url: URL + 'comments?'+'postId='+1,
             timeout: 20000,
-            params: {
-                postId: 1
-            },
+            // params: {
+            //     postId: 1
+            // },
             method: 'GET',
             responseType: 'json'
         }).then(function (response) {
@@ -57,7 +57,7 @@ export function getBook(id) {
     return function (dispatch) {
         dispatch(requestBook());
         return axios({
-            url: URL + 'comments',
+            url: URL + 'books',
             timeout: 20000,
             params: {
                 id: id
