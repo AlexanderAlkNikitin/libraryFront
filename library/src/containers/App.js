@@ -9,11 +9,11 @@ import * as bookActions from '../actions/BookAction'
 
 class App extends Component {
     render() {
-        const {bookList, activeBook} =this.props
-        const {getBooks, getBook}=this.props.bookActions
+        const {bookList, activeBook,showBook} =this.props
+        const {getBooks, getBook, shBook,hideBookForm}=this.props.bookActions
         return <div>
-            <Book bookList={bookList} getBooks={getBooks} getBook={getBook}/>
-            <BookForm  activeBook={activeBook}/>
+            <Book bookList={bookList} getBooks={getBooks} getBook={getBook} shBook={shBook} hideBookForm={hideBookForm}/>
+            {showBook ? <BookForm  activeBook={activeBook}/> : null}
         </div>
     }
 }
@@ -21,15 +21,13 @@ class App extends Component {
 function mapStateToProps(state) {
     return {
         bookList: state.book.bookList,
-        activeBook: state.book.activeBook
+        activeBook: state.book.activeBook,
+        showBook: state.book.showBook
     }
 }
 function mapDispatchToProps(dispatch) {
 
     return {
-        // getBooks:()=>{
-        //     dispatch(getBooks()).then((response)=>{dispatch(fetchBooksSucces(response.payload))});
-        // },
         bookActions: bindActionCreators(bookActions, dispatch)
     }
 }

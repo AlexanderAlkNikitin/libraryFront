@@ -1,6 +1,7 @@
 const initialState = {
     bookList:{books:[],loading:false},
-    activeBook:{book:null,loading:false}
+    activeBook:{book:null,loading:false},
+    showBook:false
 }
 
 export default function getBook(state = initialState,action) {
@@ -16,6 +17,8 @@ export default function getBook(state = initialState,action) {
             return{...state,activeBook:{...state.activeBook,loading:true}}
         case 'FETCH_BOOK_SUCCESS':
             return{...state,activeBook:{book:action.data,loading:false}}
+        case 'SHOW':
+            return{...state,showBook:action.showBook}
         default:
             return state
     }

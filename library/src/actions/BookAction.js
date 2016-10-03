@@ -30,6 +30,12 @@ function receiveError(data) {
         data: data
     }
 }
+function setShowBook() {
+    return{
+        type: 'SHOW',
+        showBook:true
+    }
+}
 export function getBooks() {
     return function (dispatch) {
         dispatch(requestBooks());
@@ -57,11 +63,11 @@ export function getBook(id) {
     return function (dispatch) {
         dispatch(requestBook());
         return axios({
-            url: URL + 'books',
+            url: URL + 'books/'+id,
             timeout: 20000,
-            params: {
-                id: id
-            },
+            // params: {
+            //     id: id
+            // },
             method: 'GET',
             responseType: 'json'
         }).then(function (response) {
@@ -70,5 +76,20 @@ export function getBook(id) {
             dispatch(receiveError(response.data));
         })
     }
-
+}
+export function shBook() {
+    return function (dispatch) {
+        dispatch(setShowBook());
+    }
+}
+function hdBookForm() {
+    return{
+        type: 'SHOW',
+        showBook:false
+    }
+}
+export function hideBookForm() {
+    return function (dispatch) {
+        dispatch(hdBookForm());
+    }
 }
