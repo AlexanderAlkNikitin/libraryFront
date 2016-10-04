@@ -12,8 +12,8 @@ export default class BookForm extends Component {
             author: e.target.author.value,
             genre: e.target.genre.value
         }
-        console.log(e.target.id.value)
-        this.sleep(5000).then(() => {
+        console.log(e.target.btnn.value)
+        this.sleep(1000).then(() => {
             this.props.createBook(book);
         });
         this.props.hideBookForm()
@@ -36,7 +36,7 @@ export default class BookForm extends Component {
                             <input name='name' defaultValue={book ? book.name : ''} placeholder='Name'/>
                             <input name='author' defaultValue={book ? book.author : ''} placeholder='Author'/>
                             <input name='genre' defaultValue={book ? book.genre : ''} placeholder='Genre'/>
-                            <button className='waves-effect waves-light btn'
+                            <button name='btnn' className='waves-effect waves-light btn' value={book ? 'Update' : 'Add'}
                                     type='submit'>{book ? 'Update' : 'Add'}</button>
                         </form>
                     </div>

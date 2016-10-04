@@ -2,22 +2,18 @@ import axios from 'axios';
 
 
 function requestBooks() {
-    console.log('fetch_books')
     return {type: 'FETCH_BOOKS'}
 }
 function requestBook() {
-    console.log('fetch_book')
     return {type: 'FETCH_BOOK'}
 }
 function receiveBooks(json) {
-    console.log('fetched_books')
     return {
         type: 'FETCH_BOOKS_SUCCESS',
         data: json
     }
 }
 function receiveBook(json) {
-    console.log('fetched_book')
     return {
         type: 'FETCH_BOOK_SUCCESS',
         data: json
@@ -31,9 +27,9 @@ function receiveError(data) {
     }
 }
 function setShowBook() {
-    return{
+    return {
         type: 'SHOW',
-        showBook:true
+        showBook: true
     }
 }
 export function getBooks() {
@@ -41,13 +37,7 @@ export function getBooks() {
         dispatch(requestBooks());
         return axios({
             url: URL + 'books',
-            timeout: 20000,
-            // headers:[{
-            //     contentType:'application/json;charset=UTF-8',
-            //     transferEncoding:'chunked',
-            //     origin:'http://localhost:8080/books'
-            // }],
-            // method: 'GET',
+            timeout: 2000,
             responseType: 'json'
         }).then(function (response) {
             dispatch(receiveBooks(response.data));
@@ -59,16 +49,11 @@ export function getBooks() {
 
 
 export function getBook(id) {
-
-    console.log('in getBook'+id.valueOf())
     return function (dispatch) {
         dispatch(requestBook());
         return axios({
-            url: URL + 'books/'+id,
+            url: URL + 'books/' + id,
             timeout: 20000,
-            // params: {
-            //     id: id
-            // },
             method: 'GET',
             responseType: 'json'
         }).then(function (response) {
@@ -79,56 +64,59 @@ export function getBook(id) {
     }
 }
 function receiveNewBook(data) {
-    return{
+    return {
         type: 'CREATE_SUCCESS_BOOK',
         data: data
     }
 }
+function updateBook(data) {
+    return {
+        type: 'UPDATE_SUCCESS_BOOK',
+        data: data
+    }
+}
 export function createBook(book) {
-    console.log(book)
     return function (dispatch) {
         return axios({
-            url:URL+'books/save',
-            timeout:20000,
-            data:{
-                id:book.id,
-                name:book.name,
-                author:book.author,
-                genre:book.genre
+            url: URL + 'books/save',
+            timeout: 20000,
+            data: {
+                id: book.id,
+                name: book.name,
+                author: book.author,
+                genre: book.genre
             },
-            method:'POST',
-            // headers:[{
-            //   contentType:'application/json'}
-            // ],
-            responseType:'json'
+            method: 'POST',
+            responseType: 'json'
         }).then(function (response) {
-            dispatch(receiveNewBook(response.data))
+            if (book.id == 0) {
+                dispatch(receiveNewBook(response.data))
+            } else {
+                dispatch(updateBook(response.data))
+            }
+
         })
     }
 }
 function delBook(data) {
-    return{
+    return {
         type: 'DELETE_SUCCESS_BOOK',
         data: data
     }
 }
 export function deleteBook(book) {
-    console.log(book)
     return function (dispatch) {
         return axios({
-            url:URL+'books/delete',
-            timeout:20000,
-            data:{
-                id:book.id,
-                name:book.name,
-                author:book.author,
-                genre:book.genre
+            url: URL + 'books/delete',
+            timeout: 20000,
+            data: {
+                id: book.id,
+                name: book.name,
+                author: book.author,
+                genre: book.genre
             },
-            method:'delete',
-            // headers:[{
-            //   contentType:'application/json'}
-            // ],
-            responseType:'json'
+            method: 'delete',
+            responseType: 'json'
         }).then(function (response) {
             dispatch(delBook(response.data))
         })
@@ -140,9 +128,9 @@ export function shBook() {
     }
 }
 function hdBookForm() {
-    return{
+    return {
         type: 'SHOW',
-        showBook:false
+        showBook: false
     }
 }
 export function hideBookForm() {

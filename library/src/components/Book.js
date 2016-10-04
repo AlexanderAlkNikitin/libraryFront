@@ -5,7 +5,6 @@ import React, {PropTypes, Component} from 'react'
 export default class Book extends Component {
 
     componentWillMount() {
-        console.log('comps');
         this.props.getBooks();
     }
 
@@ -13,7 +12,6 @@ export default class Book extends Component {
         this.sleep(500).then(() => {
             this.props.hideBookForm()
         });
-        console.log(e)
         this.props.getBook(e);
         this.sleep(500).then(() => {
             this.props.shBook()
@@ -21,7 +19,6 @@ export default class Book extends Component {
     }
 
     onClickBtnAddBook() {
-        console.log('show add');
         this.props.shBook()
     }
 
