@@ -5,14 +5,14 @@ import React, {PropTypes, Component} from 'react'
 export default class Book extends Component {
 
     componentWillMount() {
-        this.props.getBooks();
+        this.props.getBooks(this.props.token);
     }
 
     onClickBtn(e) {
         this.sleep(500).then(() => {
             this.props.hideBookForm()
         });
-        this.props.getBook(e);
+        this.props.getBook(e,this.props.token);
         this.sleep(500).then(() => {
             this.props.shBook()
         });
@@ -24,7 +24,7 @@ export default class Book extends Component {
 
     onClickBtnDeleteBook(e) {
 
-        this.props.deleteBook(e);
+        this.props.deleteBook(e,this.props.token);
     }
 
     sleep(time) {
@@ -59,6 +59,7 @@ export default class Book extends Component {
 
     render() {
         const {books, loading}=this.props.bookList
+        // const {token}=this.props
         // const {activeBook}=this.props.activeBook
         // const {showBook}=this.props.showBook
         if (loading) {

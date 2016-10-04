@@ -32,12 +32,16 @@ function setShowBook() {
         showBook: true
     }
 }
-export function getBooks() {
+export function getBooks(token) {
     return function (dispatch) {
         dispatch(requestBooks());
         return axios({
             url: URL + 'books',
             timeout: 2000,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': token
+            },
             responseType: 'json'
         }).then(function (response) {
             dispatch(receiveBooks(response.data));
@@ -48,13 +52,17 @@ export function getBooks() {
 }
 
 
-export function getBook(id) {
+export function getBook(id,token) {
     return function (dispatch) {
         dispatch(requestBook());
         return axios({
             url: URL + 'books/' + id,
             timeout: 20000,
             method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': token
+            },
             responseType: 'json'
         }).then(function (response) {
             dispatch(receiveBook(response.data));
@@ -75,7 +83,7 @@ function updateBook(data) {
         data: data
     }
 }
-export function createBook(book) {
+export function createBook(book,token) {
     return function (dispatch) {
         return axios({
             url: URL + 'books/save',
@@ -85,6 +93,10 @@ export function createBook(book) {
                 name: book.name,
                 author: book.author,
                 genre: book.genre
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': token
             },
             method: 'POST',
             responseType: 'json'
@@ -104,7 +116,7 @@ function delBook(data) {
         data: data
     }
 }
-export function deleteBook(book) {
+export function deleteBook(book,token) {
     return function (dispatch) {
         return axios({
             url: URL + 'books/delete',
@@ -114,6 +126,10 @@ export function deleteBook(book) {
                 name: book.name,
                 author: book.author,
                 genre: book.genre
+            },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Auth-Token': token
             },
             method: 'delete',
             responseType: 'json'

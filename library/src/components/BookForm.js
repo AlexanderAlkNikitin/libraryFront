@@ -14,7 +14,7 @@ export default class BookForm extends Component {
         }
         console.log(e.target.btnn.value)
         this.sleep(1000).then(() => {
-            this.props.createBook(book);
+            this.props.createBook(book,this.props.token);
         });
         this.props.hideBookForm()
 
