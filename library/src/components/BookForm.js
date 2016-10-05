@@ -1,7 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 // import {Row, Input, Col,Button} from 'react-materialize'
 
-
+// var divStyle = {
+//     marginTop:67
+// };
 export default class BookForm extends Component {
 
     onClickBtn(e) {
@@ -14,10 +16,18 @@ export default class BookForm extends Component {
         }
         console.log(e.target.btnn.value)
         this.sleep(1000).then(() => {
-            this.props.createBook(book,this.props.token);
+            console.log('token in bookform'+this.props.token.token)
+            this.props.createBook(book,this.props.token.token);
         });
         this.props.hideBookForm()
 
+    }
+    onClickAbort(e){
+        e.preventDefault();
+        this.props.hideBookForm()
+            }
+    onResetEverything(){
+        this.triggerReset();
     }
 
     sleep(time) {
@@ -27,17 +37,50 @@ export default class BookForm extends Component {
     render() {
         const {book}=this.props.activeBook
         return (
-            <div className='container'>
-                {book ? <h3>Update book </h3> : <h3>Add book</h3>}
+            <div>
+                {book ?
+                    <div>
+                        <h3>Update book </h3>
+                        <h4>Updating  book</h4>
+                    </div>:
+                <div>
+                    <h3>Add book</h3>
+                    <h4>Creating new book</h4>
+                </div>}
+
                 <div className='row'>
-                    <div className='col s6'>
-                        <form onSubmit={::this.onClickBtn}>
+                    <div className='row  green accent-1'>
+                        <form className='col' onSubmit={::this.onClickBtn}>
                             <input name='id' type='hidden' defaultValue={book ? book.id : ''} placeholder='id'/>
-                            <input name='name' defaultValue={book ? book.name : ''} placeholder='Name'/>
-                            <input name='author' defaultValue={book ? book.author : ''} placeholder='Author'/>
-                            <input name='genre' defaultValue={book ? book.genre : ''} placeholder='Genre'/>
-                            <button name='btnn' className='waves-effect waves-light btn' value={book ? 'Update' : 'Add'}
-                                    type='submit'>{book ? 'Update' : 'Add'}</button>
+                            <div className='col'>
+                                <label>Name</label>
+                            </div>
+
+                            <div className='input-field col s11'>
+                                <input id='names' type='text' name='name' defaultValue={book ? book.name : ''} />
+                            </div>
+                            <div className='col'>
+                                <label>Author</label>
+                            </div>
+                            <div className='input-field col s11'>
+                                <input  id='author' type='text' name='author' defaultValue={book ? book.author : ''} />
+                            </div>
+                            <div className='col'>
+                                <label>Genre</label>
+                            </div>
+                            <div className='input-field col s11'>
+                                <input id='genre' type='text' name='genre' defaultValue={book ? book.genre : ''} />
+                            </div>
+                                <div className='row'>
+                                    <div className='col'>
+                                        <button name='btnn' className='waves-effect waves-light btn' value={book ? 'Update' : 'Add'}
+                                                type='submit'>{book ? 'Update' : 'Add'}</button>
+                                    </div>
+                                    <div className='col'>
+                                        <button name='btnn' className='waves-effect waves-light btn' onClick={::this.onClickAbort}
+                                                >Cancel</button>
+                                    </div>
+                                </div>
                         </form>
                     </div>
                 </div>

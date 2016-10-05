@@ -32,6 +32,8 @@ export default function getBook(state = initialState, action) {
             let index = state.bookList.books.findIndex(x=>x.id==action.data.id);
             const data=remove(remBooks,index).concat(action.data);
             return {...state, activeBook: {book: null},bookList:{books:data,loading:false}}
+        case 'HIDE':
+            return {...state, showBook: action.showBook,activeBook:{book:null,loading:false}}
         default:
             return state
     }

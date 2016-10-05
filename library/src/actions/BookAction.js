@@ -145,7 +145,7 @@ export function shBook() {
 }
 function hdBookForm() {
     return {
-        type: 'SHOW',
+        type: 'HIDE',
         showBook: false
     }
 }

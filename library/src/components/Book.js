@@ -5,14 +5,15 @@ import React, {PropTypes, Component} from 'react'
 export default class Book extends Component {
 
     componentWillMount() {
-        this.props.getBooks(this.props.token);
+        console.log('token in mount'+this.props.token.token)
+        this.props.getBooks(this.props.token.token);
     }
 
     onClickBtn(e) {
-        this.sleep(500).then(() => {
-            this.props.hideBookForm()
-        });
-        this.props.getBook(e,this.props.token);
+        // this.sleep(500).then(() => {
+        //     this.props.hideBookForm()
+        // });
+        this.props.getBook(e,this.props.token.token);
         this.sleep(500).then(() => {
             this.props.shBook()
         });
@@ -24,7 +25,7 @@ export default class Book extends Component {
 
     onClickBtnDeleteBook(e) {
 
-        this.props.deleteBook(e,this.props.token);
+        this.props.deleteBook(e,this.props.token.token);
     }
 
     sleep(time) {
@@ -37,7 +38,7 @@ export default class Book extends Component {
             let deleteBtnClick = this.onClickBtnDeleteBook.bind(this, book);
 
             return (
-                <tbody key={book.id}>
+                <tbody key={book.id} className='red lighten-5'>
                 <tr>
                     <td>{book.id}</td>
                     <td>{book.name}</td>
@@ -66,17 +67,19 @@ export default class Book extends Component {
             return <div className='container'><h1>Books</h1><h3>Loading...</h3></div>
         }
         return (
-            <div className='container'>
-                <h1>Books</h1>
+            <div>
+                <h3>Books</h3>
                 <button className='waves-effect waves-light btn' onClick={::this.onClickBtnAddBook}>Show add form
                 </button>
+                <p/>
                 <table className='highlight'>
-                    <thead>
+                    <thead className='red lighten-3'>
                     <tr>
-                        <th data-field='id'>Name</th>
+                        <th data-field='id'>Id</th>
                         <th data-field='name'>Name</th>
                         <th data-field='genre'>Genre</th>
                         <th data-field='author'>Author</th>
+                        <th data-field='options'>Options</th>
                     </tr>
                     </thead>
                     {this.renderBooks(books)}

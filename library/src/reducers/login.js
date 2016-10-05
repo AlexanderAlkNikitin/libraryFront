@@ -24,7 +24,7 @@ export default function loginning(state = initialState, action) {
                 userName:jwtDecode(action.payload.token).userName,
                 statusText:'You have been successfully logged in'}
         case 'LOGIN_USER_FAILURE':
-            return state
+            return {...state,statusText:action.payload}
         case 'LOGOUT_USER':
             return state
         case 'LOGIN_SUCCESS':
