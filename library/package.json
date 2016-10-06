@@ -1,7 +1,7 @@
 {
-  "name": "redux-ru-tutorial",
+  "name": "Library",
   "version": "1.0.0",
-  "description": "Redux RU tutorial",
+  "description": "Library",
   "main": "index.js",
   "scripts": {
     "start": "node server.js"
